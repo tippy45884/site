@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>animent</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -88,18 +88,15 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Laravel
+                animent
             </div>
 
             <div class="links">
                 <a href="/anime">アニメ</a>
                 <a href="/comic">漫画</a>
-                <a href="/news">News</a>
-                <a href="https://blog.laravel.com">Blog</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://vapor.laravel.com">Vapor</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
+                <a href="/news">ニュース</a>
+                <a href="/ranking">ランキング</a>
+                <a href="/login">ログイン</a>
             </div>
         </div>
     </div>
