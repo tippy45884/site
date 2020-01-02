@@ -24,7 +24,7 @@ require "servercon.php";
                     animent
                 </font>
             </h1>
-            <a href="./index.php" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left">
+            <a href="./" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left"  data-rel="back" data-direction="reverse">
                 戻る
             </a>
         </div>

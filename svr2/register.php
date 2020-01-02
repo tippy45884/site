@@ -24,7 +24,7 @@ require_once "servercon.php";
                 </font>
             </h1>
             <a href="./login.php"
-                class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left">
+                class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left"  data-rel="back" data-direction="reverse">
                 戻る
             </a>
         </div>
@@ -43,7 +43,9 @@ if (strlen($username) > 0 && strlen($password) > 0 && strlen($email)) {
     //var_dump($result);
     if ($result->result == true) { 
       //echo "register success";
-      header('Location: ./index.php');
+      $alert = "<script type='text/javascript'> alert('新しいユーザーが登録しました。ログインしてください。');</script>";
+            echo $alert;
+      header('Location: ./login.php');
 ?>
 
 
@@ -53,7 +55,7 @@ if (strlen($username) > 0 && strlen($password) > 0 && strlen($email)) {
 <?php 
   } else if ($result->result == false){
     //echo "register failed";
-    $alert = "<script type='text/javascript'> alert('Register failed, ". $result->value . ".');</script>";
+    $alert = "<script type='text/javascript'> alert('登録失敗, ". $result->value . ".');</script>";
             echo $alert;
 
 }

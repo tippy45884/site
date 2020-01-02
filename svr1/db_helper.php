@@ -136,7 +136,7 @@ function getProductWithType($type)
 function getTop10Product($type)
 {
     $conn = connectToDB();
-    $sql = "SELECT * FROM products WHERE type=$type ORDER BY rank DESC LIMIT 10";
+    $sql = "SELECT * FROM products WHERE type=$type ORDER BY rank ASC LIMIT 10";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $results_array = array();
@@ -225,4 +225,8 @@ function getUserProduct($user_id){
     } else {
         return array(false, $conn->error);
     }
+}
+
+function search($type_id, $keyword){
+
 }

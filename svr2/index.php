@@ -71,7 +71,7 @@ $type_list = conServer("type.php", null);
         $type_arr = $type_list->value;
         for ($i=0; $i < count($type_arr); $i++) { 
             $url = $type_arr[$i]->url;
-            echo '<li><a href="./' . $url . '.php">';
+            echo '<li><a href="./type.php?id=' . $type_arr[$i]->id . '" data-transition="slide">';
 ?>
                 <h3>
                     <?php 
@@ -108,8 +108,8 @@ if ($news_list->result ==  true) {
                     <div>
                         <!-- <p class="cat01">cat01</p> -->
                     </div>
-                    <p> <?php echo '<a href="' . $url . '">';?><?php echo $title; ?></a> -
-                        <?php echo '<time datetime="'. $date . '">'. $date . '</time>';?> </p>
+                    <p> <?php echo '<a href="' . $url . '" >';?><?php echo $title; ?></a> -
+                        <?php echo '<time date00time="'. $date . '">'. $date . '</time>';?> </p>
 
 
                 </li>
