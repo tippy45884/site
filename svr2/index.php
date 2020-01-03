@@ -4,7 +4,7 @@ require "servercon.php";
 // $lifeTime = 30 * 24 * 3600;//save for 30days
 // $sessionName = session_name();
 // $sessionID = $_GET[$sessionName];
-// session_id($sessionID); 
+// session_id($sessionID);
 // session_set_cookie_params($lifeTime);
 $logined = false;
 session_start();
@@ -35,17 +35,17 @@ session_start();
                 </font>
             </h1>
             <?php
-            if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
-                ?>
+if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
+    ?>
             <a href="./logout.php"
                 class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-right">
-                ログアウト<?php echo $_SESSION["uid"];?>
+                ログアウト
             </a>
 
             <?php
-            } else {
-                $_SESSION["logined"] = false;
-                ?>
+} else {
+    $_SESSION["logined"] = false;
+    ?>
 
             <a href="./login.php"
                 class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-right">
@@ -53,9 +53,9 @@ session_start();
             </a>
 
             <?php
-            }
-            
-            ?>
+}
+
+?>
 
         </div>
         <div data-role="content">
@@ -67,55 +67,46 @@ session_start();
 
 $type_list = conServer("type.php", null);
 //var_dump($type_list);
-    if ($type_list->result ==  true) {
-        $type_arr = $type_list->value;
-        for ($i=0; $i < count($type_arr); $i++) { 
-            $url = $type_arr[$i]->url;
-            echo '<li><a href="./type.php?id=' . $type_arr[$i]->id . '" data-transition="slide">';
-?>
-                <h3>
-                    <?php 
-                                echo $type_arr[$i]->name;
-                            ?>
-                </h3>
+if ($type_list->result == true) {
+    $type_arr = $type_list->value;
+    for ($i = 0; $i < count($type_arr); $i++) {
+        $url = $type_arr[$i]->url;
+        echo '<li><a href="./type.php?id=' . $type_arr[$i]->id . '" data-transition="slide">';
+        ?>
+                <h3><?php echo $type_arr[$i]->name; ?></h3>
                 </a>
                 </li>
 
 
                 <?php
-        }
-    }
-
+}
+}
 ?>
         </div>
         <div>
-            <ul class="msr_newslist01">
 
+            <ul data-role="listview">
+            <li data-role="list-divider">ニュース</li>
                 <?php
-
 $news_list = conServer("news.php", null);
 //var_dump($news_list);
 
-if ($news_list->result ==  true) {
+if ($news_list->result == true) {
     $news_arr = $news_list->value;
-    for ($i=0; $i < count($news_arr); $i++) {
+    for ($i = 0; $i < count($news_arr); $i++) {
         $date = $news_arr[$i]->date;
-        $title = $news_arr[$i]->title;
-        $url = $news_arr[$i]->url;
-?>
+        ?>
 
-                <li>
-                    <div>
-                        <!-- <p class="cat01">cat01</p> -->
-                    </div>
-                    <p> <?php echo '<a href="' . $url . '" >';?><?php echo $title; ?></a> -
-                        <?php echo '<time date00time="'. $date . '">'. $date . '</time>';?> </p>
-
-
-                </li>
+            <li>
+                <?php echo '<a href="' . $news_arr[$i]->url . '" >'; ?>
+                    <h2><?php echo $news_arr[$i]->title; ?></h2>
+                    <p><?php echo $news_arr[$i]->content; ?></p>
+                    <p class="ui-li-aside"><?php echo '<time date00time="' . $date . '">' . $date . '</time>'; ?></p>
+                </a>
+            </li>
 
                 <?php
-    }
+}
 }
 ?>
 

@@ -16,7 +16,8 @@ if ($op === 'get') {
 }elseif ($op === 'set') {
     $product_id = $data['product_id'];
     $progress = $data['progress'];
-    $result = setProgress($user_id,$product_id,$progress);
+    $status = $data['status'];
+    $result = setProgress($user_id,$product_id,$progress,$status);
     if ($result[0] == true) {
 		$r = array("result"=>true,"value"=>$result[1]);
 	}else{
@@ -24,7 +25,8 @@ if ($op === 'get') {
     }
     
 }else if($op === 'all'){
-    $result = getUserProduct($user_id);
+  $type = $data['type_id'];
+    $result = getUserProduct($user_id,$type);
     if ($result[0] == true) {
 		$r = array("result"=>true,"value"=>$result[1]);
 	}else{

@@ -42,11 +42,13 @@ if (strlen($username) > 0 && strlen($password) > 0) {
     //var_dump($result);
     if ($result->result == true) { 
             session_start();
+            session_regenerate_id(true);
             $_SESSION["logined"] = true;
             $_SESSION["username"] = $username;
+            var_dump($result->value);
             $_SESSION["uid"] = $result->value->id;
-            $alert = "<script type='text/javascript'> alert('Login success, now jump to home page.');</script>";
-            echo $alert;
+            //$alert = "<script type='text/javascript'> alert('Login success, now jump to home page.');</script>";
+            //echo $alert;
             header('Location: ./index.php');
 ?>
 

@@ -37,49 +37,44 @@ if ($type_list->result == true) {
 
     <div data-role="content">
 
-        
 
 
 
 
-        <?php
-if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
+
+        <?php if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
+    $array = array('op' => 'all','type_id'=>$type_id, 'user_id' => $_SESSION["uid"] );
+    $post_data = json_encode($array);
+    $product_list = conServer("progress.php", $post_data);
+    //var_dump($product_list);
     ?>
 
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">
                 自分の記録
             </li>
-            <?php
-$array = array('op' => 'all', 'user_id' => $_SESSION["uid"]);
-    $post_data = json_encode($array);
-    $product_list = conServer("progress.php", $post_data);
-    //var_dump($product_list);
-
-    if ($product_list->result == true) {
+            <?php if ($product_list->result == true) {
         $products = $product_list->value;
-
+        //var_dump($products);
+                
         for ($i = 0; $i < count($products); $i++) {
-            $product_id = $products[$i]->product_id;
-            $array = array('op' => 'get', 'id' => $product_id);
-            $post_data = json_encode($array);
-            $product_info = conServer("product.php", $post_data);
-            //var_dump($product_info);
-            if ($product_info->result == true) {
-
+            
                 ?>
             <li>
-                <h3>
-                    <?php
-                    echo $product_info->value[0]->name;
-                ?>
-                </h3>
+            <?php
+        echo '<a href="./product.php?id=' . $products[$i]->id . '" data-transition="slide" >';
+        echo '<img src="' . $products[$i]->img_url . '" />';
+        echo '<h3>' . $products[$i]->name . '</h3>';
+        echo '<span class="ui-li-count">' . $products[$i]->progress . '</span>';
+        echo '</a>';
+        ?>
             </li>
 
 
-            <?php
-}
+            <?php 
         }
+    }else{
+        echo '<li>何もないよ★〜</li>';
     }
     ?>
         </ul>
@@ -122,7 +117,7 @@ if ($rank_list->result == true) {
             <li>
 
                 <?php
-                    echo '<a href="./product.php?id=' . $rank_arr[$i]->id . '" data-transition="slide" >';
+echo '<a href="./product.php?id=' . $rank_arr[$i]->id . '" data-transition="slide" >';
         echo '<img src="' . $rank_arr[$i]->img_url . '" />';
         echo '<h3>' . $rank_arr[$i]->name . '</h3>';
         echo '<span class="ui-li-count">第' . $rank_arr[$i]->rank . '位</span>';

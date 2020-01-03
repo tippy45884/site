@@ -22,7 +22,6 @@ function userLogin($ur, $psw)
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
-        
         return array(true, $result->fetch_assoc());
     } else {
         $sql = "SELECT * FROM users WHERE email='$ur' AND password='$psw'";
@@ -201,9 +200,9 @@ function getProgress($user_id,$product_id){
         return array(false, $conn->error);
     }
 }
-function setProgress($user_id,$product_id,$progress){
+function setProgress($user_id,$product_id,$progress,$status){
     $conn = connectToDB();
-    $sql = "INSERT INTO progress(user_id, product_id, progress) VALUES ('$user_id', '$product_id', '$progress')";
+    $sql = "INSERT INTO progress(user_id, product_id, progress, status) VALUES ('$user_id', '$product_id', '$progress' , '$status')";
 
     if ($conn->query($sql) === true) {
         return array(true, null);
@@ -212,9 +211,9 @@ function setProgress($user_id,$product_id,$progress){
     }
 }
 
-function getUserProduct($user_id){
+function getUserProduct($user_id,$type_id){
     $conn = connectToDB();
-    $sql = "SELECT * FROM progress WHERE user_id=$user_id";
+    $sql = "SELECT * FROM progress AS p1 INNER JOIN products AS p2 ON p1.product_id=p2.id WHERE p1.user_id=$user_id AND p2.type=$type_id";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $results_array = array();
