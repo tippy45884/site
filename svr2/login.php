@@ -84,9 +84,9 @@ if (strlen($username) > 0 && strlen($password) > 0) {
 
         </form>
 
-        <p>
+        <div class="ui-grid-solo" style="text-align: center;">
             <a href="./register.php" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">新規登録</a>
-        </p>
+        </div>
 
         <div data-role="footer">
             <h4>

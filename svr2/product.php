@@ -117,21 +117,26 @@ switch ($product->onair_day) {
                     <div data-role="controlgroup" data-type="horizontal">
                         <?php
 $active = 'class="ui-btn-active"';
-$watching = $progress->value[0]->progress;
+$watching = 0;
+$status = 0;
+if ($progress->result == true) {
+    $watching = $progress->value[0]->progress;
+    $status = $progress->value[0]->status;
+}
     echo '<a href="./progress.php?status=1&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
-    if ($progress->value[0]->status == 1) {echo $active;}
+    if ($status == 1) {echo $active;}
     echo '>予定</a>';
 
     echo '<a href="./progress.php?status=2&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
-    if ($progress->value[0]->status == 2) {echo $active;}
+    if ($status == 2) {echo $active;}
     echo '>進行中</a>';
 
     echo '<a href="./progress.php?status=3&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
-    if ($progress->value[0]->status == 3) {echo $active;}
+    if ($status == 3) {echo $active;}
     echo '>完成</a>';
 
     echo '<a href="./progress.php?status=0&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
-    if ($progress->value[0]->status == 0) {echo $active;}
+    if ($status == 0 ) {echo $active;}
     echo '>なし</a>';
     ?>
                     </div>
@@ -145,13 +150,13 @@ if ($product->count > 0) { //話数がある
             <li>
                 <div class="ui-grid-b" style="text-align: center;">
                     <div class="ui-block-a" style="text-align: center;">
-                        <?php echo '<a href="./progress.php?status='.$progress->value[0]->status.'&product_id='.$product_id.'&progress='.($watching-1).'" class="ui-btn ui-btn-icon-top ui-icon-minus"> </a>'; ?>
+                        <?php echo '<a href="./progress.php?status='.$status.'&product_id='.$product_id.'&progress='.($watching-1).'" class="ui-btn ui-btn-icon-top ui-icon-minus"> </a>'; ?>
                     </div>
                     <div class="ui-block-b" style="text-align: center;">
                         <?php echo '<input type="number" value="'.$watching.'" readonly class="number">'; ?>
                     </div>
                     <div class="ui-block-c" style="text-align: center;">
-                        <?php echo '<a href="./progress.php?status='.$progress->value[0]->status.'&product_id='.$product_id.'&progress='.($watching+1).'" class="ui-btn ui-btn-icon-top ui-icon-plus"> </a>'; ?>
+                        <?php echo '<a href="./progress.php?status='.$status.'&product_id='.$product_id.'&progress='.($watching+1).'" class="ui-btn ui-btn-icon-top ui-icon-plus"> </a>'; ?>
                     </div>
                 </div>
             </li>
@@ -170,7 +175,13 @@ if ($product->count > 0) { //話数がある
 ?>
 
 
-
+<div data-role="footer">
+            <h4>
+                <small>
+                    Copyright &copy; 2019 Group7
+                </small>
+            </h4>
+        </div>
     </div>
 </body>
 

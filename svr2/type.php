@@ -24,7 +24,8 @@ if ($type_list->result == true) {
 
 <body>
     <div data-role="header">
-        <a href="./" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left" data-rel="back" data-direction="reverse">
+        <a href="./" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-back ui-btn-icon-left ui-btn-left"
+            data-rel="back" data-direction="reverse">
             戻る
         </a>
         <h1>
@@ -42,42 +43,47 @@ if ($type_list->result == true) {
 
 
 
-        <?php if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
-    $array = array('op' => 'all','type_id'=>$type_id, 'user_id' => $_SESSION["uid"] );
+        <?php
+if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
+    $array = array('op' => 'all', 'type_id' => $type_id, 'user_id' => $_SESSION["uid"]);
     $post_data = json_encode($array);
-    $product_list = conServer("progress.php", $post_data);
-    //var_dump($product_list);
+    $prog_list = conServer("progress.php", $post_data);
+    //var_dump($prog_list);
     ?>
 
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">
                 自分の記録
             </li>
-            <?php if ($product_list->result == true) {
-        $products = $product_list->value;
-        //var_dump($products);
-                
-        for ($i = 0; $i < count($products); $i++) {
-            
+            <?php
+if ($prog_list->result == true) {
+        $progs = $prog_list->value;
+
+        for ($i = 0; $i < count($progs); $i++) {
+            if ($progs[$i]->status == 1 || $progs[$i]->status == 2) {
                 ?>
             <li>
-            <?php
-        echo '<a href="./product.php?id=' . $products[$i]->id . '" data-transition="slide" >';
-        echo '<img src="' . $products[$i]->img_url . '" />';
-        echo '<h3>' . $products[$i]->name . '</h3>';
-        echo '<span class="ui-li-count">' . $products[$i]->progress . '</span>';
-        echo '</a>';
-        ?>
+                <?php
+echo '<a href="./product.php?id=' . $progs[$i]->id . '" data-transition="slide" >';
+                echo '<img src="' . $progs[$i]->img_url . '" />';
+                echo '<h3>' . $progs[$i]->name . '</h3>';
+                if ($progs[$i]->progress > 0) {
+                    echo '<span class="ui-li-count">' . $progs[$i]->progress . '</span>';
+                }
+                echo '</a>';
+                ?>
             </li>
 
 
-            <?php 
+            <?php
+}
         }
-    }else{
+    } else {
         echo '<li>何もないよ★〜</li>';
     }
     ?>
         </ul>
+
 
 
 
@@ -98,7 +104,7 @@ if ($type_list->result == true) {
 
 
 
-<ul data-role="listview" data-inset="true">
+        <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">
                 ランキング
             </li>
@@ -130,7 +136,13 @@ echo '<a href="./product.php?id=' . $rank_arr[$i]->id . '" data-transition="slid
 }
 ?>
         </ul>
-
+        <div data-role="footer">
+            <h4>
+                <small>
+                    Copyright &copy; 2019 Group7
+                </small>
+            </h4>
+        </div>
     </div>
 </body>
 

@@ -200,9 +200,20 @@ function getProgress($user_id,$product_id){
         return array(false, $conn->error);
     }
 }
+
+function addProgress($user_id,$product_id,$progress,$status){
+    $conn = connectToDB();
+    $sql = "INSERT INTO progress(user_id, product_id, progress, status) VALUES ('$user_id', '$product_id', '$progress', '$status')";
+
+    if ($conn->query($sql) === true) {
+        return array(true, null);
+    } else {
+        return array(false, $conn->error);
+    }
+}
 function setProgress($user_id,$product_id,$progress,$status){
     $conn = connectToDB();
-    $sql = "INSERT INTO progress(user_id,product_id,progress,status) VALUES ($user_id, $product_id, $progress, $status) ON DUPLICATE KEY UPDATE progress=$progress, status=$status";
+    $sql = "UPDATE progress SET progress='$progress', status='$status' WHERE user_id=$user_id AND product_id=$product_id";
 
     if ($conn->query($sql) === true) {
         return array(true, null);

@@ -37,9 +37,9 @@ session_start();
             <?php
 if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
     ?>
-            <a href="./logout.php"
+            <a href="./profile.php"
                 class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-right">
-                ログアウト
+                マイページ
             </a>
 
             <?php

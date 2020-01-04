@@ -102,7 +102,7 @@ if ($conn->query($sql) === true) {
 
 echo 'Create progress table:</p>';
 $sql = "CREATE TABLE progress (
-        user_id INT(10) UNSIGNED KEY,
+        user_id INT(10),
         product_id INT(10),
         progress INT(10),
         status INT(10)
