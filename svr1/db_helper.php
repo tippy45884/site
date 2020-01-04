@@ -8,10 +8,10 @@ function connectToDB()
         die("Connection failed: " . $conn->connect_error . "</p>");
         return null;
     }
-    mysql_set_charset('utf8');
+    $conn->query("SET NAMES 'utf8'");
     ini_set('default_charset','utf-8');
     header('Content-type: text/html; charset=utf-8');
-    $conn->query("SET NAMES 'utf8'");
+    mysql_set_charset('utf8');
     return $conn;
 }
 
@@ -202,7 +202,7 @@ function getProgress($user_id,$product_id){
 }
 function setProgress($user_id,$product_id,$progress,$status){
     $conn = connectToDB();
-    $sql = "INSERT INTO progress(user_id, product_id, progress, status) VALUES ('$user_id', '$product_id', '$progress' , '$status')";
+    $sql = "INSERT INTO progress(user_id,product_id,progress,status) VALUES ($user_id, $product_id, $progress, $status) ON DUPLICATE KEY UPDATE progress=$progress, status=$status";
 
     if ($conn->query($sql) === true) {
         return array(true, null);

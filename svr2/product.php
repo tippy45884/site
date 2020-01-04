@@ -21,6 +21,8 @@ $product_list = conServer("product.php", $post_data);
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+
+
 </head>
 <?php
 if ($product_list->result != true) {
@@ -61,7 +63,7 @@ if ($product_list->result != true) {
                 </div>
             </li>
             <li>話数：<?php echo $product->count; ?></li>
-            <?php if($product->onair_day >=0){?>
+            <?php if ($product->onair_day >= 0) {?>
             <li>再生日：<?php
 switch ($product->onair_day) {
     case 0:
@@ -89,8 +91,8 @@ switch ($product->onair_day) {
         echo '--';
         break;
 }
-?></li>
-<?php } ?>
+    ?></li>
+            <?php }?>
             <li>評価：<?php echo $product->score; ?></li>
             <li>ランキング：第<?php echo $product->rank; ?>位</li>
             <li>紹介：<font style="white-space:normal;"><?php echo $product->description; ?></font>
@@ -101,43 +103,64 @@ switch ($product->onair_day) {
 
 
         <?php if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
-            $array = array('op' => 'get','product_id'=>$product->id, 'user_id' => $_SESSION["uid"] );
-            $post_data = json_encode($array);
-            $progress = conServer("progress.php", $post_data);
-            //var_dump($progress);
-   ?>
+    $array = array('op' => 'get', 'product_id' => $product->id, 'user_id' => $_SESSION["uid"]);
+    $post_data = json_encode($array);
+    $progress = conServer("progress.php", $post_data);
+    //var_dump($progress);
+    ?>
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">状態</li>
 
-            
+
             <li>
-            <div class="ui-grid-solo" style="text-align: center;">
-                <div data-role="controlgroup" data-type="horizontal">
-                    <a href="#" data-role="button">予定</a>
-                    <a href="#" data-role="button">進行中</a>
-                    <a href="#" data-role="button">完成</a>
-                    <a href="#" data-role="button">なし</a>
+                <div class="ui-grid-solo" style="text-align: center;">
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <?php
+$active = 'class="ui-btn-active"';
+$watching = $progress->value[0]->progress;
+    echo '<a href="./progress.php?status=1&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
+    if ($progress->value[0]->status == 1) {echo $active;}
+    echo '>予定</a>';
+
+    echo '<a href="./progress.php?status=2&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
+    if ($progress->value[0]->status == 2) {echo $active;}
+    echo '>進行中</a>';
+
+    echo '<a href="./progress.php?status=3&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
+    if ($progress->value[0]->status == 3) {echo $active;}
+    echo '>完成</a>';
+
+    echo '<a href="./progress.php?status=0&progress='.$watching.'&product_id='.$product_id.'" data-role="button" ';
+    if ($progress->value[0]->status == 0) {echo $active;}
+    echo '>なし</a>';
+    ?>
                     </div>
                 </div>
             </li>
 
-<?php 
-if($product->count > 0){
-if($progress->result == true){ ?>
+            <?php
+if ($product->count > 0) { //話数がある
+        if($progress->result == true){
+            ?>
             <li>
-            <div class="ui-grid-c">
-                <div class="ui-block-a"><button class="minus">－</button></div>
-                <div class="ui-block-b"><?php echo '<input type="number" value="'. $progress->value[0]->progress .'" readonly class="number"></div>';?>
-                <div class="ui-block-c"><button class="plus">＋</button></div>
-                <div class="ui-block-d"><button class="save">保存</button></div>
-            </div>
+                <div class="ui-grid-b" style="text-align: center;">
+                    <div class="ui-block-a" style="text-align: center;">
+                        <?php echo '<a href="./progress.php?status='.$progress->value[0]->status.'&product_id='.$product_id.'&progress='.($watching-1).'" class="ui-btn ui-btn-icon-top ui-icon-minus"> </a>'; ?>
+                    </div>
+                    <div class="ui-block-b" style="text-align: center;">
+                        <?php echo '<input type="number" value="'.$watching.'" readonly class="number">'; ?>
+                    </div>
+                    <div class="ui-block-c" style="text-align: center;">
+                        <?php echo '<a href="./progress.php?status='.$progress->value[0]->status.'&product_id='.$product_id.'&progress='.($watching+1).'" class="ui-btn ui-btn-icon-top ui-icon-plus"> </a>'; ?>
+                    </div>
+                </div>
             </li>
 
-            
+
         </ul>
         <?php
-}
-}
+        }
+    }
 } else {
     $_SESSION["logined"] = false;
     ?>
