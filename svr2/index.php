@@ -61,7 +61,7 @@ if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
         <div data-role="content">
             <ul data-role="listview" data-inset="true">
                 <li data-role="list-divider">
-                    Menu
+                    メニュー
                 </li>
                 <?php
 

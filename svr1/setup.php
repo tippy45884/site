@@ -33,7 +33,8 @@ $sql = "CREATE TABLE users (
     username VARCHAR(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     password VARCHAR(300) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    role INT(6)
     )";
 
 if ($conn->query($sql) === true) {
@@ -53,7 +54,7 @@ $sql = "CREATE TABLE products (
         rank INT(50),
         mod_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         description TEXT CHARACTER SET utf8 COLLATE utf8_general_ci,
-        img_url ARCHAR(300) CHARACTER SET utf8 COLLATE utf8_general_ci
+        img_url VARCHAR(300) CHARACTER SET utf8 COLLATE utf8_general_ci
         )";
 
 if ($conn->query($sql) === true) {

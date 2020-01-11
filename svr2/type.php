@@ -5,7 +5,7 @@ session_start();
 $type_id = intval($_GET["id"]);
 $type_list = conServer("type.php", null);
 if ($type_list->result == true) {
-    $type_name = $type_list->value[$type_id]->name;
+    $type_name = $type_list->value[$type_id-1]->name;
 } else {
     $type_name = "UNKNOW_TYPE";
 }
@@ -34,14 +34,14 @@ if ($type_list->result == true) {
             </font>
         </h1>
 
+        <?php 
+        if ($_SESSION["role"] >= 1) {
+            echo '<a href="./editProduct.php?op=add&type=' . $type_id . '" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-right">追加</a>';
+        }
+        ?>
     </div>
 
     <div data-role="content">
-
-
-
-
-
 
         <?php
 if (isset($_SESSION["logined"]) && $_SESSION["logined"] === true) {
