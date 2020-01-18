@@ -46,6 +46,11 @@ if ($product_list->result != true) {
             </font>
         </h1>
 
+        <?php 
+        if ($_SESSION["role"] >= 1) {
+            echo '<a href="./editProduct.php?op=edit&product_id=' . $product_id . '" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-edit ui-btn-icon-left ui-btn-right">編集</a>';
+        }
+        ?>
     </div>
 
     <div data-role="content">

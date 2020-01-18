@@ -45,7 +45,7 @@ if (strlen($username) > 0 && strlen($password) > 0 && strlen($email)) {
       //echo "register success";
       $alert = "<script type='text/javascript'> alert('新しいユーザーが登録しました。ログインしてください。');</script>";
             echo $alert;
-      header('Location: ./login.php');
+      header('Location: ./index.php');
 ?>
 
 
@@ -88,14 +88,6 @@ if (strlen($username) > 0 && strlen($password) > 0 && strlen($email)) {
                 </small>
             </h4>
         </div>
-    </div>
-
-    <div data-role="footer">
-        <h4>
-            <small>
-                Copyright &copy; 2019 Group7
-            </small>
-        </h4>
     </div>
 
 

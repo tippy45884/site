@@ -47,6 +47,7 @@ if (strlen($username) > 0 && strlen($password) > 0) {
             $_SESSION["username"] = $username;
             var_dump($result->value);
             $_SESSION["uid"] = $result->value->id;
+            $_SESSION["role"] = $result->value->role;
             //$alert = "<script type='text/javascript'> alert('Login success, now jump to home page.');</script>";
             //echo $alert;
             header('Location: ./index.php');
